@@ -1,0 +1,49 @@
+Release 26-01-2017
+=============
++ Sources cleaned according to Linux Kernel code style.
++ Ethtool support improving: bus_info, RSS info, ring stats.
++ B0 chip support.
++ LRO offload support for B0.
++ Hibernate support (suspend/resume).
++ Linear skb for single descriptor packets (jumbo frames up to 4500 bytes).
++ f/w version checking.
+* fix: Link down after driver unload.
+
+
+Release scope
+=============
+- This atlantic driver supports Little Nikki and Bambi cards.
+- It was validated on the following Linux distributions:
+        Ubuntu 14.04 (4.2.0-27 SMP x86_64)
+        Ubuntu 16.04.1 LTS (4.4.0-31-generic SMP x86_64)
+        CentOS 7.3 (3.10.0)
+
+- It was validated on 100M, 1G, 2.5G, 5G, 10G speed
+- It supports polling and MSI-X interrupts mode
+- Supported features:
+ - Multiring
+ - RSS
+ - CSO
+ - LSO
+ - LRO (only for B0 chip)
+
+
+Build procedure
+===============
+1. Configure gcc build environment
+2. Install appropriate kernel-devel-xxx package (uname -r).
+3. Copy the archive with sources to a work folder and extract the sources
+4. Run make command in order to build driver.
+5. Rune make clean command in order to clean the build.
+
+File aq_cfg.h has some driver settings.
+
+Testing
+=======
+1. Prepare a PC with empty PCIe slot and install Ubuntu 14.04 or Debian 6
+2. Install Little Nikki or Bambi card into PCIe slot of PC
+3. Load driver (insmod atlantic.ko)
+4. Netwok manager should report that connection has beed established
+5. Check that the device with IP address is appeared in the output of "ifconfig -a"
+6. Run ping command to a known host
+7. Run ping command from the host to the device
